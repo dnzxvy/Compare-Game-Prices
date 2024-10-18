@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #D3D3D3;
+        }
+
+        .topnav {
+            background-color: #222222;
+            z-index: 1;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .topnav a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .topnav a.active {
+            background-color: #999999;
+            color: white;
+        }
+
+        .nav-title {
+            text-align: center;
+            flex-grow: 1;
+            margin-top: -10px; /* Move title upwards */
+        }
+
+        .nav-title h2 {
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropbtn {
+            background-color: #000000;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            display: none;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            left: 0;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .topnav input[type=text] {
+            padding: 6px;
+            margin-top: 8px;
+            font-size: 17px;
+            width: 650px;
+            border: 2px solid black;
+            border-radius: 8px;
+            padding: 5px;
+            border-style: groove;
+        }
+
+        .topnav .search-container button {
+            padding: 6px;
+            margin-top: 8px;
+            background: #ddd;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .topnav .search-container button:hover {
+            background: #ccc;
+        }
+
+        .view-toggle {
+            display: flex;
+            justify-content: right;
+            align-items: right;
+            margin-left: auto;
+            border-radius: 5px;
+            padding: 5px;
+            border-style: groove;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            padding: 10px;
+            font-size: 10px;
+            font-family: Helvetica, Arial, Sans-Serif;
+        }
+
+        .list-view {
+            display: block; /* For List View */
+        }
+
+        /* Increase margin in the list view */
+        .list-view .item {
+            margin-bottom: 40px; /* Increase the space between items in list view */
+            display: flex; /* Aligns elements in a row (image and text) */
+            align-items: flex-start; /* Aligns content to top */
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .grid-view .item {
+            margin-bottom: 10px; /* Smaller margin in grid view */
+        }
+
+        .item {
+            padding: 20px;
+            text-align: center;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: #FFFFFF;
+            border-style: groove;
+            font-size: 10px;
+            font-family: Helvetica, Arial, Sans-Serif;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .list-item img {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .game-image {
+            max-width: 100%; /* Ensures the image is responsive */
+            height: auto; /* Maintains aspect ratio */
+        }
+
+        .game-title, .game-price {
+            margin: 10px 0; /* Space between elements */
+            font-family: Helvetica, Arial, Sans-Serif;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .list-view .game-image {
+            margin-right: 20px; /* Adds space between the image and the text */
+            width: 150px; /* Adjust image size */
+            height: auto; /* Maintains image aspect ratio */
+			float: left;
+        }
+
+        .list-view .game-title {
+            font-size: 18px;
+            font-weight: bold;
+            padding-left: 200px; /* Moves title slightly to the right */
+        }
+
+        .list-view .game-price {
+            margin-top: 5px;
+            font-size: 16px;
+			padding-left: 100px;
+        }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+            border: 1px solid #ddd;
+            margin: 0 4px;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+
+
+    </style>
+    <title>Compare Game Prices</title>
+</head>
+<body>
+    <div class="topnav">
+        <a href="/">Home</a>
+        <div class="dropdown">
+            <a href="#categories" class="dropbtn">Categories</a>
+            <div class="dropdown-content">
+                <a class="active" href="/ps5_games">PS5 Games</a>
+                <a href="#">XBOX Games</a>
+                <a href="#">Nintendo Switch Games</a>
+            </div>
+        </div>
+
+        <div class="nav-title">
+            <h2>PriceLoot</h2>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search..."> <!-- Added id -->
+            <button type="button" onclick="myFunction()">🔍</button>
+        </div>
+    </div>
+
+    <div class="view-toggle">
+        <button id="gridView" onclick="toggleView('grid')">Grid View</button>
+        <button id="listView" onclick="toggleView('list')">List View</button>
+    </div>
+
+
+    <div class="sort-container">
+        <label for="sort">Sort by:</label>
+        <select id="sort" onchange="sortGames()">
+            <option value="default" {% if sort_option == 'default' %} selected {% endif %}>Show All Games</option>
+            <option value="low-to-high" {% if sort_option == 'low-to-high' %} selected {% endif %}>Price: Low to High</option>
+            <option value="high-to-low" {% if sort_option == 'high-to-low' %} selected {% endif %}>Price: High to Low</option>
+        </select>
+    </div>
+
+    <h1 class="mt-5">PS5 Games</h1>
+
+    <section>
+        <div class="container" id="gameContainer"> <!-- Added ID here -->
+            {% for result in results %}
+            <div class="item">
+                <a href="{{ result.URL }}" target="_blank">
+                    <img src="{{ result.Image }}" alt="{{ result.Game }}" class="game-image" width="100" height="100">
+                    <h3 class="game-title">{{ result.Game }}</h3>
+                    <p class="game-price">Price: {{ result.Price }}</p>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="/ps5_games?page={{ page - 1 }}">&laquo;</a>
+        {% endif %}
+        {% for i in range(1, total_pages + 1) %}
+            <a href="/ps5_games?page={{ i }}" class="{% if i == page %}active{% endif %}">{{ i }}</a>
+        {% endfor %}
+        {% if page < total_pages %}
+        <a href="/ps5_games?page={{ page + 1 }}">&raquo;</a>
+        {% endif %}
+    </div>
+
+    <script>
+        const allGames = [
+            {% for game in all_games %}
+            {
+                title: "{{ game.Game }}",
+                price: "{{ game.Price }}",
+                image: "{{ game.Image }}",
+                url: "{{ game.URL }}"
+            }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        function myFunction() {
+            var input, filter, container;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            container = document.querySelector('.container');
+
+            // Clear current items
+            container.innerHTML = "";
+
+            // Filter the master list of games
+            const filteredGames = allGames.filter(game => 
+                game.title.toUpperCase().indexOf(filter) > -1
+            );
+
+            // Render the filtered results
+            filteredGames.forEach(game => {
+                const itemDiv = document.createElement("div");
+                itemDiv.className = "item";
+                itemDiv.innerHTML = `
+                    <a href="${game.url}" target="_blank">
+                        <img src="${game.image}" alt="${game.title}" class="game-image" width="100" height="100">
+                        <h3 class="game-title">${game.title}</h3>
+                        <p class="game-price">Price: ${game.price}</p>
+                    </a>
+                `;
+                container.appendChild(itemDiv);
+            });
+
+            // Handle no results found
+            if (filteredGames.length === 0) {
+                container.innerHTML = "<p>No results found.</p>";
+            }
+        }
+
+       function sortGames() {
+		   const sortValue = document.getElementById("sort").value;
+		   const currentPage = {{ page }};  // Ensure 'page' is properly passed from backend
+		   window.location.href = `/ps5_games?page=${currentPage}&sort=${sortValue}`;
+		}
+
+        function toggleView(view) {
+            const container = document.querySelector('.container');
+            if (view === 'list') {
+                container.classList.remove('grid-view');
+                container.classList.add('list-view');
+            } else {
+                container.classList.remove('list-view');
+                container.classList.add('grid-view');
+            }
+        }
+        
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

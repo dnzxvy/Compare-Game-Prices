@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+            background-color: #222222;
+            z-index: 1;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .topnav a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .topnav a.active {
+            background-color: #999999;
+            color: white;
+        }
+
+        .nav-title {
+            text-align: center;
+            flex-grow: 1;
+            margin-top: -10px; /* Move title upwards */
+        }
+
+        .nav-title h2 {
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Dropdown button */
+        .dropbtn {
+            background-color: #000000;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* The container for positioning the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown Content */
+        .dropdown-content {
+            position: absolute;
+            display: none;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            left: 0;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+
+        /* Search bar container on the right */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .topnav input[type=text] {
+            padding: 6px;
+            margin-top: 8px;
+            font-size: 17px;
+            width: 650px;
+            border: 2px solid black;
+            border-radius: 8px;
+            padding: 5px;
+            border-style: groove;
+        }
+
+        .topnav .search-container button {
+            padding: 6px;
+            margin-top: 8px;
+            background: #ddd;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .topnav .search-container button:hover {
+            background: #ccc;
+        }
+
+    </style>
+    <title>Compare Game Prices</title>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+
+        <div class="dropdown">
+            <a href="#categories" class="dropbtn">Categories</a>
+            <div class="dropdown-content">
+                <a href="ps5_games">PS5 Games</a>
+                <a href="#">XBOX Games</a>
+                <a href="#">Nintendo Switch Games</a>
+            </div>
+        </div>
+
+        <div class="nav-title">
+            <h2>PriceLoot</h2>
+        </div>
+
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+            <button type="button"><i>🔍</i></button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="mt-5">Games</h1>
+
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Game</th>
+                    <th>Price</th>
+                    <th>Image</th>
+					<th>Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result.Game }}</td>
+                    <td>{{ result.Price }}</td>
+                    <td><img src="{{ result.Image }}" alt="{{ result.Game }}" width="200" height="200"></td>
+					<td>{{ result.URL }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
